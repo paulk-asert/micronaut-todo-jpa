@@ -6,10 +6,10 @@ import spock.lang.Specification
 import jakarta.inject.Inject
 
 @MicronautTest
-class MicronautTodoJpaSpec extends Specification {
+class ApplicationSpec extends Specification {
 
     @Inject
-    EmbeddedApplication<?> application
+    EmbeddedApplication application
 
     void 'test it works'() {
         expect:
