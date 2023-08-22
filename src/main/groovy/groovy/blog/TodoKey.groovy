@@ -3,6 +3,7 @@ package groovy.blog
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
+import io.micronaut.core.annotation.Creator
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.persistence.Embeddable
 import jakarta.validation.constraints.NotBlank
@@ -23,6 +24,7 @@ class TodoKey {
 
     TodoKey() {}
 
+    @Creator
     TodoKey(@NotBlank String title, @NotNull LocalDate due = NULL) {
         this.title = title
         this.due = due ?: NULL
