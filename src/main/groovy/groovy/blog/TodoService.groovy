@@ -31,20 +31,20 @@ class TodoService {
     }
 
     Todo delete(@Valid TodoKey key) {
-        var todo = find(key)
+        Todo todo = find(key)
         repo.delete(todo)
         todo
     }
 
     Todo reschedule(@Valid TodoKey key, LocalDate newDate) {
-        def todo = find(key)
+        Todo todo = find(key)
         repo.delete(todo)
         todo.key = new TodoKey(key.title, newDate)
         repo.save(todo)
     }
 
     Todo unschedule(@Valid TodoKey key) {
-        def todo = find(key)
+        Todo todo = find(key)
         if (todo.scheduled) {
             repo.delete(todo)
             todo.key = new TodoKey(key.title)
@@ -54,7 +54,7 @@ class TodoService {
     }
 
     Todo complete(@Valid TodoKey key) {
-        var todo = find(key).tap { completed = LocalDate.now() }
+        Todo todo = find(key).tap { completed = LocalDate.now() }
         repo.update(todo)
     }
 }
