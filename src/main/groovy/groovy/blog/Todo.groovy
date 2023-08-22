@@ -35,7 +35,7 @@ class Todo {
         this.completed = completed
     }
 
-    Todo(@NotNull @NotBlank String title, @Nullable String description, @Nullable LocalDate due, @Nullable LocalDate completed) {
+    Todo(@NotBlank String title, @Nullable String description, @Nullable LocalDate due, @Nullable LocalDate completed) {
         this.key = new TodoKey(title, due)
         this.description = description
         this.completed = completed

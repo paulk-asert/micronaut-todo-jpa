@@ -18,12 +18,12 @@ import java.time.LocalDate
 class TodoKey {
     public static final LocalDate NULL = LocalDate.of(1900, 1, 1)
 
-    @NotNull @NotBlank String title
+    @NotBlank String title
     @NotNull LocalDate due = NULL
 
     TodoKey() {}
 
-    TodoKey(@NotNull @NotBlank String title, @NotNull LocalDate due = NULL) {
+    TodoKey(@NotBlank String title, @NotNull LocalDate due = NULL) {
         this.title = title
         this.due = due ?: NULL
     }
