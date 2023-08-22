@@ -21,7 +21,7 @@ class TodoService {
     }
 
     Todo find(@Valid TodoKey key) {
-        repo.findByKey(key)
+        repo.findById(key).get()
     }
 
     TodoStats stats() {
