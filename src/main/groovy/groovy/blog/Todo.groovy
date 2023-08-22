@@ -15,9 +15,11 @@ import java.time.LocalDate
 @Entity
 @Serdeable
 @EqualsAndHashCode
+@Introspected
 @JsonIgnoreProperties(['done', 'scheduled'])
 class Todo {
-    @NonNull
+    @NotNull
+    @Valid
     @EmbeddedId
     TodoKey key
 
@@ -29,6 +31,7 @@ class Todo {
 
     Todo() {}
 
+    @Creator
     Todo(@NotNull @Valid TodoKey key, @Nullable String description, @Nullable LocalDate completed) {
         this.key = key
         this.description = description
@@ -36,7 +39,7 @@ class Todo {
     }
 
     Todo(@NotBlank String title, @Nullable String description, @Nullable LocalDate due, @Nullable LocalDate completed) {
-        this.key = new TodoKey(title, due)
+        this.key = title?.trim() ? new TodoKey(title, due) : null
         this.description = description
         this.completed = completed
     }
@@ -46,10 +49,10 @@ class Todo {
     }
 
     boolean isScheduled() {
-        key.scheduled
+        key?.scheduled
     }
 
     String toString() {
-        "Todo($key.title, $description, $key.due, $completed)"
+        "Todo($key?.title, $description, $key?.due, $completed)"
     }
 }
