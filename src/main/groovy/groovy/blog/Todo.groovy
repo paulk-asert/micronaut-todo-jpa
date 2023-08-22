@@ -33,7 +33,6 @@ class Todo {
 
     Todo() {}
 
-    @Creator
     Todo(@NonNull TodoKey key, @Nullable String description, @Nullable LocalDate completed) {
         this.key = key
         this.description = description

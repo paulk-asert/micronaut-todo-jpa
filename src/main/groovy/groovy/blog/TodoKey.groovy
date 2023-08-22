@@ -26,7 +26,6 @@ class TodoKey {
 
     TodoKey() {}
 
-    @Creator
     TodoKey(@NotBlank String title, @NotNull LocalDate due = NULL) {
         this.title = title
         this.due = due ?: NULL
