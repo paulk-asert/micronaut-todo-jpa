@@ -23,8 +23,7 @@ class TodoControllerSpec extends Specification {
     void "test stats response"() {
         when:
         var request = HttpRequest.GET('/stats')
-        var json = client.toBlocking().retrieve(request, String)
-        var stats = mapper.readValue(json, TodoStats)
+        TodoStats stats = client.toBlocking().retrieve(request, TodoStats)
 
         then:
         stats.toMap() == [total: 0, completed: 0, totalScheduled: 0, completedOnSchedule: 0]
@@ -65,8 +64,7 @@ class TodoControllerSpec extends Specification {
 
         when:
         request = HttpRequest.GET('/stats')
-        var json = client.toBlocking().retrieve(request, String)
-        var stats = mapper.readValue(json, TodoStats)
+        TodoStats stats = client.toBlocking().retrieve(request, TodoStats)
 
         then:
         stats.toMap() == [total: 2, completed: 0, totalScheduled: 1, completedOnSchedule: 0]
@@ -92,8 +90,7 @@ class TodoControllerSpec extends Specification {
 
         when:
         request = HttpRequest.GET('/stats')
-        json = client.toBlocking().retrieve(request, String)
-        stats = mapper.readValue(json, TodoStats)
+        stats = client.toBlocking().retrieve(request, TodoStats)
 
         then:
         stats.toMap() == [total: 1, completed: 1, totalScheduled: 0, completedOnSchedule: 0]
@@ -110,11 +107,9 @@ class TodoControllerSpec extends Specification {
 
         when:
         request = HttpRequest.GET('/stats')
-        json = client.toBlocking().retrieve(request, String)
-        stats = mapper.readValue(json, TodoStats)
+        stats = client.toBlocking().retrieve(request, TodoStats)
 
         then:
         stats.toMap() == [total: 1, completed: 1, totalScheduled: 1, completedOnSchedule: 1]
     }
-
 }

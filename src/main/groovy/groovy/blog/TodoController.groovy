@@ -2,7 +2,6 @@ package groovy.blog
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
-import io.micronaut.json.JsonMapper
 import io.micronaut.scheduling.annotation.ExecuteOn
 import jakarta.inject.Inject
 
@@ -14,8 +13,6 @@ import static io.micronaut.scheduling.TaskExecutors.BLOCKING
 @Controller('todo')
 class TodoController {
     @Inject TodoService service
-
-    @Inject JsonMapper mapper
 
     @Get('/')
     Collection<Todo> list() {
@@ -34,8 +31,8 @@ class TodoController {
     }
 
     @Get('/stats')
-    String statsAsString() {
-        mapper.writeValueAsString(service.stats())
+    TodoStats statsAsString() {
+        service.stats()
     }
 
     @Delete('/delete/{title}')
