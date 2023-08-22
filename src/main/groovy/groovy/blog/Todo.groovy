@@ -20,6 +20,7 @@ import java.time.LocalDate
 @JsonIgnoreProperties(['done', 'scheduled'])
 class Todo {
     @NotNull
+    @Valid
     @EmbeddedId
     TodoKey key
 
