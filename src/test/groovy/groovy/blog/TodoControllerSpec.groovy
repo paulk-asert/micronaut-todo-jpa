@@ -1,9 +1,9 @@
 package groovy.blog
 
-import com.fasterxml.jackson.databind.ObjectMapper as JacksonMapper
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
+import io.micronaut.json.JsonMapper
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
@@ -18,7 +18,7 @@ class TodoControllerSpec extends Specification {
     HttpClient client
 
     @Inject
-    JacksonMapper mapper
+    JsonMapper mapper
 
     void "test stats response"() {
         when:

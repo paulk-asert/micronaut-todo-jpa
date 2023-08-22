@@ -1,8 +1,8 @@
 package groovy.blog
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
+import io.micronaut.json.JsonMapper
 import io.micronaut.scheduling.annotation.ExecuteOn
 import jakarta.inject.Inject
 
@@ -15,7 +15,7 @@ import static io.micronaut.scheduling.TaskExecutors.BLOCKING
 class TodoController {
     @Inject TodoService service
 
-    @Inject ObjectMapper mapper
+    @Inject JsonMapper mapper
 
     @Get('/')
     Collection<Todo> list() {
