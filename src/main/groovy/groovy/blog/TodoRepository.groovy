@@ -7,15 +7,11 @@ import jakarta.validation.Valid
 import java.time.LocalDate
 
 @Repository
-abstract class TodoRepository implements CrudRepository<@Valid Todo, @Valid TodoKey> {
-    abstract int countByCompletedIsNotNull()
+interface TodoRepository extends CrudRepository<@Valid Todo, @Valid TodoKey> {
+    int countByCompletedIsNotNull()
 
-    abstract int countByDueNotEqual(LocalDate due)
+    int countByDueNotEqual(LocalDate due)
 
     @Query('SELECT count(*) FROM Todo t WHERE t.completed <= t.key.due')
-    abstract int countCompletedOnSchedule()
-
-    Todo findByKey(TodoKey key) {
-        findById(key).get()
-    }
+    int countCompletedOnSchedule()
 }

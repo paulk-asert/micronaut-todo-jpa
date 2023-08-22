@@ -28,12 +28,13 @@ class TodoValidationSpec extends Specification {
         thrown(ConstraintViolationException)
 
         when: 'The TodoKey has a null title'
-        repo.findByKey(new TodoKey(null, ANY_DATE))
+        repo.findById(new TodoKey(null, ANY_DATE))
+
         then:
         thrown(ConstraintViolationException)
 
         when: 'The TodoKey has a blank title'
-        repo.findByKey(new TodoKey('', ANY_DATE))
+        repo.findById(new TodoKey('', ANY_DATE))
         then:
         thrown(ConstraintViolationException)
     }

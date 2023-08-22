@@ -1,11 +1,13 @@
 package groovy.blog
 
+import groovy.transform.CompileStatic
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import jakarta.validation.Valid
 
 import java.time.LocalDate
 
+@CompileStatic
 @Singleton
 class TodoService {
     @Inject TodoRepository repo
@@ -19,32 +21,32 @@ class TodoService {
     }
 
     Todo find(@Valid TodoKey key) {
-        repo.findByKey(key)
+        repo.findById(key).get()
     }
 
     TodoStats stats() {
-        int total = repo.count()
+        long total = repo.count()
         int completed = repo.countByCompletedIsNotNull()
         int totalScheduled = repo.countByDueNotEqual(TodoKey.NULL)
         int completedOnSchedule = repo.countCompletedOnSchedule()
-        new TodoStats(total, completed, totalScheduled, completedOnSchedule)
+        new TodoStats(total.intValue(), completed, totalScheduled, completedOnSchedule)
     }
 
     Todo delete(@Valid TodoKey key) {
-        var todo = find(key)
+        Todo todo = find(key)
         repo.delete(todo)
         todo
     }
 
     Todo reschedule(@Valid TodoKey key, LocalDate newDate) {
-        def todo = find(key)
+        Todo todo = find(key)
         repo.delete(todo)
         todo.key = new TodoKey(key.title, newDate)
         repo.save(todo)
     }
 
     Todo unschedule(@Valid TodoKey key) {
-        def todo = find(key)
+        Todo todo = find(key)
         if (todo.scheduled) {
             repo.delete(todo)
             todo.key = new TodoKey(key.title)
@@ -54,7 +56,7 @@ class TodoService {
     }
 
     Todo complete(@Valid TodoKey key) {
-        var todo = find(key).tap { completed = LocalDate.now() }
+        Todo todo = find(key).tap { completed = LocalDate.now() }
         repo.update(todo)
     }
 }

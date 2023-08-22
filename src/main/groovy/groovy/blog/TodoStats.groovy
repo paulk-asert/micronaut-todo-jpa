@@ -1,10 +1,19 @@
 package groovy.blog
 
-import com.fasterxml.jackson.annotation.JsonCreator
-import com.fasterxml.jackson.annotation.JsonProperty
+import groovy.transform.Canonical
+import groovy.transform.CompileStatic
+import io.micronaut.serde.annotation.Serdeable
 
-@JsonCreator
-record TodoStats(@JsonProperty('total') int total,
-                 @JsonProperty('completed') int completed,
-                 @JsonProperty('totalScheduled') int totalScheduled,
-                 @JsonProperty('completedOnSchedule') int completedOnSchedule) {}
+@CompileStatic
+@Canonical
+@Serdeable
+class TodoStats {
+    int total
+    int completed
+    int totalScheduled
+    int completedOnSchedule
+
+    Map<String, Integer> toMap() {
+        [total: total, completed: completed, totalScheduled: totalScheduled, completedOnSchedule: completedOnSchedule]
+    }
+}
