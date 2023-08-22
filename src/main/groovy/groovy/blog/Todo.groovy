@@ -3,6 +3,7 @@ package groovy.blog
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import groovy.transform.EqualsAndHashCode
 import io.micronaut.core.annotation.*
+import io.micronaut.core.util.StringUtils
 import io.micronaut.serde.annotation.Serdeable
 import jakarta.persistence.EmbeddedId
 import jakarta.persistence.Entity
@@ -12,12 +13,13 @@ import jakarta.validation.constraints.NotNull
 
 import java.time.LocalDate
 
+@Introspected
 @Entity
 @Serdeable
 @EqualsAndHashCode
 @JsonIgnoreProperties(['done', 'scheduled'])
 class Todo {
-    @NonNull
+    @NotNull
     @EmbeddedId
     TodoKey key
 
@@ -29,16 +31,15 @@ class Todo {
 
     Todo() {}
 
-    Todo(@NotNull @Valid TodoKey key, @Nullable String description, @Nullable LocalDate completed) {
+    @Creator
+    Todo(@NonNull TodoKey key, @Nullable String description, @Nullable LocalDate completed) {
         this.key = key
         this.description = description
         this.completed = completed
     }
 
-    Todo(@NotBlank String title, @Nullable String description, @Nullable LocalDate due, @Nullable LocalDate completed) {
-        this.key = new TodoKey(title, due)
-        this.description = description
-        this.completed = completed
+    Todo(@NonNull String title, @Nullable String description, @Nullable LocalDate due, @Nullable LocalDate completed) {
+        this(StringUtils.isEmpty(title) ? null : new TodoKey(title, due), description, completed)
     }
 
     boolean isDone() {
@@ -46,7 +47,7 @@ class Todo {
     }
 
     boolean isScheduled() {
-        key.scheduled
+        key?.scheduled
     }
 
     String toString() {
