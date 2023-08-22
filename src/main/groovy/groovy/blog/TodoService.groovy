@@ -1,11 +1,13 @@
 package groovy.blog
 
+import groovy.transform.CompileStatic
 import jakarta.inject.Inject
 import jakarta.inject.Singleton
 import jakarta.validation.Valid
 
 import java.time.LocalDate
 
+@CompileStatic
 @Singleton
 class TodoService {
     @Inject TodoRepository repo
@@ -23,11 +25,11 @@ class TodoService {
     }
 
     TodoStats stats() {
-        int total = repo.count()
+        long total = repo.count()
         int completed = repo.countByCompletedIsNotNull()
         int totalScheduled = repo.countByDueNotEqual(TodoKey.NULL)
         int completedOnSchedule = repo.countCompletedOnSchedule()
-        new TodoStats(total, completed, totalScheduled, completedOnSchedule)
+        new TodoStats(total.intValue(), completed, totalScheduled, completedOnSchedule)
     }
 
     Todo delete(@Valid TodoKey key) {

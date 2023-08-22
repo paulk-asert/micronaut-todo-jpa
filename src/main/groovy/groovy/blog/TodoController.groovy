@@ -1,5 +1,6 @@
 package groovy.blog
 
+import groovy.transform.CompileStatic
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
 import io.micronaut.scheduling.annotation.ExecuteOn
@@ -9,6 +10,7 @@ import java.time.LocalDate
 
 import static io.micronaut.scheduling.TaskExecutors.BLOCKING
 
+@CompileStatic
 @ExecuteOn(BLOCKING)
 @Controller('todo')
 class TodoController {
