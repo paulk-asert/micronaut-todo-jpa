@@ -1,6 +1,7 @@
 package groovy.blog
 
 import com.fasterxml.jackson.databind.ObjectMapper
+import groovy.transform.CompileStatic
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.*
 import io.micronaut.scheduling.annotation.ExecuteOn
@@ -11,6 +12,7 @@ import java.time.LocalDate
 import static io.micronaut.scheduling.TaskExecutors.BLOCKING
 
 @ExecuteOn(BLOCKING)
+@CompileStatic
 @Controller('todo')
 class TodoController {
     @Inject TodoService service

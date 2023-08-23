@@ -14,6 +14,7 @@ repositories {
 
 dependencies {
     compileOnly("io.micronaut.data:micronaut-data-processor")
+    implementation("org.apache.groovy:groovy:4.0.14")
     implementation("io.micronaut:micronaut-jackson-databind")
     implementation("io.micronaut.data:micronaut-data-hibernate-jpa")
     implementation("io.micronaut.groovy:micronaut-runtime-groovy")
@@ -21,14 +22,13 @@ dependencies {
     implementation("io.micronaut.sql:micronaut-jdbc-hikari")
     implementation("io.micronaut.validation:micronaut-validation")
     implementation("jakarta.validation:jakarta.validation-api")
+    implementation("ch.qos.logback:logback-classic")
     compileOnly("io.micronaut.serde:micronaut-serde-processor")
     compileOnly("io.micronaut.validation:micronaut-validation-processor")
-    runtimeOnly("ch.qos.logback:logback-classic")
     runtimeOnly("com.h2database:h2")
     testImplementation("io.micronaut:micronaut-http-client")
-    testImplementation("org.apache.groovy:groovy-ginq")
+    testImplementation("org.apache.groovy:groovy-ginq:4.0.14")
 }
-
 
 application {
     mainClass.set("Application")

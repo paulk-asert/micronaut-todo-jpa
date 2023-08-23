@@ -1,6 +1,7 @@
 package groovy.blog
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import groovy.transform.CompileStatic
 import groovy.transform.EqualsAndHashCode
 import io.micronaut.core.annotation.*
 import io.micronaut.serde.annotation.Serdeable
@@ -12,6 +13,7 @@ import jakarta.validation.constraints.NotNull
 
 import java.time.LocalDate
 
+@CompileStatic
 @Entity
 @Serdeable
 @EqualsAndHashCode

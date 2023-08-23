@@ -1,6 +1,5 @@
 package groovy.blog
 
-
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
@@ -29,13 +28,13 @@ class TodoClientSpec extends Specification {
             from todo in client.list()
             groupby todo.key.due
             orderby todo.key.due
-            select todo.key.due, agg(_g.stream().map(r -> r.todo.key.title).toList().toSorted()) as todos_due
+            select todo.key.due, list(todo.key.title) as todos_due
         }.toString() == '''
         +------------+------------------------------------------------------------------------+
         | due        | todos_due                                                              |
         +------------+------------------------------------------------------------------------+
         | 2023-09-01 | [Create Todo class, Create TodoKey class, Create TodoStats class]      |
-        | 2023-09-02 | [Create repo classes, Create test classes, Declarative client example] |
+        | 2023-09-02 | [Create repo classes, Declarative client example, Create test classes] |
         +------------+------------------------------------------------------------------------+
         '''.stripIndent()
     }
