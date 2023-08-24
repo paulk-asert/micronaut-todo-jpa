@@ -61,7 +61,7 @@ class TodoValidationSpec extends Specification {
         thrown(ConstraintViolationException)
     }
 
-    void 'title must not be blank or null and key must not be null'() {
+    void 'title and key must be nonnull and title must not be blank'() {
         when:
         var todo = new Todo(null, ANY_DESC, ANY_DATE, ANY_DATE)
         then:
@@ -74,6 +74,16 @@ class TodoValidationSpec extends Specification {
 
         when:
         todo = new Todo(null, ANY_DESC, ANY_DATE)
+        then:
+        validator.validate(todo)
+
+        when:
+        todo = new TodoKey(null, ANY_DATE)
+        then:
+        validator.validate(todo)
+
+        when:
+        todo = new TodoKey('', ANY_DATE)
         then:
         validator.validate(todo)
     }
